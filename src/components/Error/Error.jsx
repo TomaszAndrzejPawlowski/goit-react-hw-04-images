@@ -1,12 +1,11 @@
-import { Component } from 'react';
+import { useImagesContext } from 'components/ImagesContext/ImagesContext';
 import css from './Error.module.css';
 
-export default class Error extends Component {
-  render() {
-    return (
-      <>
-        <div className={css.error}>{this.props.errorMsg}</div>
-      </>
-    );
-  }
-}
+export const Error = () => {
+  const { errorMsg } = useImagesContext();
+  return (
+    <>
+      <div className={css.error}>{errorMsg}</div>
+    </>
+  );
+};

@@ -18,7 +18,7 @@ export const getImages = async (query, page) => {
 
   // return new Promise(res => {
   //   setTimeout(async () => {
-  //     const url = `${baseUrl}/?key=${apiKey}&q=${query}`;
+  //     const url = `${baseUrl}/?key=${apiKey}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&page=${page}&per_page=${imgPerPage}`;
   //     const resp = await axios.get(url);
   //     res(resp.data.hits);
   //   }, 2000);
