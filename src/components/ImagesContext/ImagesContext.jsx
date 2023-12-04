@@ -59,7 +59,6 @@ export const ImagesProvider = ({ children }) => {
   };
   const fetchMore = async newPage => {
     const fetchedImages = await getImages(query, newPage);
-    console.log(fetchedImages);
     if (fetchedImages === undefined) {
       setMoreBtn(false);
       return;
@@ -71,23 +70,6 @@ export const ImagesProvider = ({ children }) => {
     setModalVisible(true);
     setSelectedImage(largeImageUrl);
     setTags(tags);
-  };
-
-  const closeModal = () => {
-    setModalVisible(false);
-    setSelectedImage(null);
-  };
-
-  const closeModalOnClick = e => {
-    if (e.target.nodeName !== 'IMG') {
-      closeModal();
-    }
-  };
-
-  const closeModalOnKey = e => {
-    if (e.code === 'Escape' || e.key === 'Escape') {
-      closeModal();
-    }
   };
 
   const handleKeyUp = event => {
@@ -105,11 +87,31 @@ export const ImagesProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    window.addEventListener('click', closeModalOnClick);
-    window.addEventListener('keydown', closeModalOnKey);
+    window.addEventListener('click', e => {
+      if (e.target.nodeName !== 'IMG') {
+        setModalVisible(false);
+        setSelectedImage(null);
+      }
+    });
+    window.addEventListener('keydown', e => {
+      if (e.code === 'Escape' || e.key === 'Escape') {
+        setModalVisible(false);
+        setSelectedImage(null);
+      }
+    });
     return () => {
-      window.removeEventListener('click', closeModalOnClick);
-      window.removeEventListener('keydown', closeModalOnKey);
+      window.removeEventListener('click', e => {
+        if (e.target.nodeName !== 'IMG') {
+          setModalVisible(false);
+          setSelectedImage(null);
+        }
+      });
+      window.removeEventListener('keydown', e => {
+        if (e.code === 'Escape' || e.key === 'Escape') {
+          setModalVisible(false);
+          setSelectedImage(null);
+        }
+      });
     };
   }, []);
 
